@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stylish Scientific Calculator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #282c34;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      color: #ffffff;
+    }
+
+    .calculator {
+      background-color: #3b3f47;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .display {
+      background-color: #20232a;
+      color: #61dafb;
+      font-size: 2.5em;
+      padding: 20px;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: right;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .button {
+      font-size: 1.2em;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .button.number {
+      background-color: #61dafb;
+      color: #282c34;
+    }
+
+    .button.number:hover {
+      background-color: #52c7e8;
+      transform: translateY(-2px);
+    }
+
+    .button.number:active {
+      background-color: #4aaed6;
+      transform: translateY(2px);
+    }
+
+    .button.function {
+      background-color: #61dafb;
+      color: #282c34;
+    }
+
+    .button.function:hover {
+      background-color: #52c7e8;
+      transform: translateY(-2px);
+    }
+
+    .button.function:active {
+      background-color: #4aaed6;
+      transform: translateY(2px);
+    }
+
+    .button.clear {
+      background-color: #e74c3c;
+      color: #ffffff;
+    }
+
+    .button.clear:hover {
+      background-color: #d32f2f;
+      transform: translateY(-2px);
+    }
+
+    .button.clear:active {
+      background-color: #c0392b;
+      transform: translateY(2px);
+    }
+
+    .button.zero {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 600px) {
+      .calculator {
+        max-width: 100%;
+      }
+
+      .button {
+        padding: 10px;
+      }
+
+      .display {
+        font-size: 2em;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="calculator">
+    <input type="text" class="display" id="display" disabled>
+    <div class="buttons">
+      <button class="button function" onclick="clearDisplay()">C</button>
+      <button class="button function" onclick="backspace()">←</button>
+      <button class="button function" onclick="insert('%')">%</button>
+      <button class="button function" onclick="insert('/')">/</button>
+      <button class="button number" onclick="insert('7')">7</button>
+      <button class="button number" onclick="insert('8')">8</button>
+      <button class="button number" onclick="insert('9')">9</button>
+      <button class="button function" onclick="insert('*')">*</button>
+      <button class="button number" onclick="insert('4')">4</button>
+      <button class="button number" onclick="insert('5')">5</button>
+      <button class="button number" onclick="insert('6')">6</button>
+      <button class="button function" onclick="insert('-')">-</button>
+      <button class="button number" onclick="insert('1')">1</button>
+      <button class="button number" onclick="insert('2')">2</button>
+      <button class="button number" onclick="insert('3')">3</button>
+      <button class="button function" onclick="insert('+')">+</button>
+      <button class="button zero number" onclick="insert('0')">0</button>
+      <button class="button number" onclick="insert('.')">.</button>
+      <button class="button function" onclick="calculate()">=</button>
+      <button class="button function" onclick="insert('sin(')">sin</button>
+      <button class="button function" onclick="insert('cos(')">cos</button>
+      <button class="button function" onclick="insert('tan(')">tan</button>
+      <button class="button function" onclick="insert('log(')">log</button>
+      <button class="button function" onclick="insert('sqrt(')">√</button>
+      <button class="button function" onclick="insert('pow(')">x<sup>y</sup></button>
+      <button class="button function" onclick="insert('pi')">π</button>
+      <button class="button function" onclick="insert('e')">e</button>
+    </div>
+  </div>
+  <script>
+    const display = document.getElementById('display');
+
+    function insert(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function backspace() {
+      display.value = display.value.slice(0, -1); 
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value.replace(/sqrt/g, 'Math.sqrt').replace(/log/g, 'Math.log').replace(/sin/g, 'Math.sin').replace(/cos/g, 'Math.cos').replace(/tan/g, 'Math.tan').replace(/pow/g, 'Math.pow').replace(/pi/g, 'Math.PI').replace(/e/g, 'Math.E'));
+      } catch {
+        display.value = 'Error';
+      }
+    }
+  </script>
+</body>
+
+</html>
